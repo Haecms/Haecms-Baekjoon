@@ -13,9 +13,7 @@ string solution(vector<string> participant, vector<string> completion) {
 	}
 	for (int i = 0; i < participant.size(); i++) {
 		mapCompletion[participant[i]]--;
-	}
-	for (int i = 0; i < participant.size(); i++) {
-		if (mapCompletion[participant[i]]) {
+		if (mapCompletion[participant[i]] == -1) {
 			answer = participant[i];
 		}
 	}
