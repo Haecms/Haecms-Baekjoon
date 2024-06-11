@@ -40,29 +40,9 @@ string solution(vector<string> survey, vector<int> choices) {
             alphabet[survey[i][1]] += 3;
         }
     }
-    if (alphabet['R'] == alphabet['T']) {
-        answer += 'R';
-    }
-    else {
-        answer += alphabet['R'] > alphabet['T'] ? 'R' : 'T';
-    }
-    if (alphabet['C'] == alphabet['F']) {
-        answer += 'C';
-    }
-    else {
-        answer += alphabet['C'] > alphabet['F'] ? 'C' : 'F';
-    }
-    if (alphabet['J'] == alphabet['M']) {
-        answer += 'J';
-    }
-    else {
-        answer += alphabet['J'] > alphabet['M'] ? 'J' : 'M';
-    }
-    if (alphabet['A'] == alphabet['N']) {
-        answer += 'A';
-    }
-    else {
-        answer += alphabet['A'] > alphabet['N'] ? 'A' : 'N';
-    }
+    answer += (alphabet['R'] == alphabet['T']) ? 'R' : (alphabet['R'] > alphabet['T']) ? 'R' : 'T';
+    answer += (alphabet['C'] == alphabet['F']) ? 'C' : (alphabet['C'] > alphabet['F']) ? 'C' : 'F';
+    answer += (alphabet['J'] == alphabet['M']) ? 'J' : (alphabet['J'] > alphabet['M']) ? 'J' : 'M';
+    answer += (alphabet['A'] == alphabet['N']) ? 'A' : (alphabet['A'] > alphabet['N']) ? 'A' : 'N';
     return answer;
 }
