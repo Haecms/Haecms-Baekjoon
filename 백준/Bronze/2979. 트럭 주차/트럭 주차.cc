@@ -1,29 +1,19 @@
 #include<bits/stdc++.h>
 using namespace std;
+int A, B, C, a, b, cnt[104], ret;
 int main() {
-	int fees[3] = { 0, 0, 0 };
-	vector<pair<int, int>> cars;
-	int minStart = 1000;
-	int maxEnd = -1;
-	int realFee = 0;
+	cin >> A >> B >> C;
 	for (int i = 0; i < 3; i++) {
-		cin >> fees[i];
-	}
-	for (int i = 0; i < 3; i++) {
-		int start, end;
-		cin >> start >> end;
-		cars.push_back({start, end});
-		minStart = start > minStart ? minStart : start;
-		maxEnd = end < maxEnd ? maxEnd : end;
+		cin >> a >> b;
+		for (int j = a; j < b; j++) cnt[j]++;
 	}
 
-	for (int i = minStart; i < maxEnd; i++) {
-		int cnt = 0;
-		for (auto& car : cars) {
-			if (car.first <= i && i < car.second) cnt++;
+	for (int i = 1; i < 100; i++) {
+		if (cnt[i]) {
+			if (cnt[i] == 1) ret += A;
+			else if (cnt[i] == 2) ret += B * 2;
+			else if (cnt[i] == 3) ret += C * 3;
 		}
-		if (cnt == 0) continue;
-		realFee += cnt == 3 ? fees[2] * 3 : cnt == 2 ? fees[1] * 2 : fees[0];
 	}
-	cout << realFee;
+    cout << ret;
 }
