@@ -8,8 +8,7 @@ int main() {
 	while (scanf("%d", &a) != EOF) {
         ll b = 0, c = 0;
 		do {
-			b = b * 10 + 1;
-			b %= a;
+			b = (b%a * 10%a) + 1%a;
 			c++;
 		} while (b % a);
 		cout << c << "\n";
