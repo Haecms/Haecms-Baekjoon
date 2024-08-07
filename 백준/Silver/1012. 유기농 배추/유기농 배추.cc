@@ -17,6 +17,7 @@ void dfs(int ny, int nx) {
 	}
 }
 int main() {
+    cin.tie(NULL);cout.tie(NULL);
 	cin >> T;
 	for (int i = 0; i < T; i++) {
 		int ret = 0;
