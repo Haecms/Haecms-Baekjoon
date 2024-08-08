@@ -26,7 +26,8 @@ int main() {
 			cin >> a[i][j];
 		}
 	}
-	for (int k = 1; k < 101; k++) {
+	for (int k = 0; k < 101; k++) {
+		fill(&visited[0][0], &visited[0][0] + max_n * max_n, 0);
 		int count = 0;
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
@@ -36,13 +37,7 @@ int main() {
 				}
 			}
 		}
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				visited[i][j] = 0;
-			}
-		}
-		if (count > ret) ret = count;
+		ret = max(ret, count);
 	}
-	if (!ret) ret = 1;
-	cout << ret;
+	cout << ret << '\n';
 }
