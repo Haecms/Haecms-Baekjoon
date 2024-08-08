@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 const int max_n = 101;
-int N, ny, nx, ret = 0;
+int N, ny, nx, ret = 0, max_height = 0;;
 int a[max_n][max_n], visited[max_n][max_n];
 int dy[4] = { -1, 0, 1, 0 };
 int dx[4] = { 0, -1, 0, 1 };
@@ -18,15 +18,17 @@ void dfs(int y, int x, int k) {
 }
 
 int main() {
+	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
 	cin >> N;
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
 			cin >> a[i][j];
+			max_height = a[i][j] > max_height ? a[i][j] : max_height;
 		}
 	}
-	for (int k = 0; k < 101; k++) {
+	for (int k = 0; k < max_height; k++) {
 		fill(&visited[0][0], &visited[0][0] + max_n * max_n, 0);
 		int count = 0;
 		for (int i = 0; i < N; i++) {
