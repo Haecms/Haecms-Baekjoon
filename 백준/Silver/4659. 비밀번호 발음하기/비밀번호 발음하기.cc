@@ -1,14 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 string s;
-map<char, int> moum = {
-	{'a', 1}, {'b', 0}, {'c', 0}, {'d', 0},	{'e', 1},
-	{'f', 0}, {'g', 0}, {'h', 0}, {'i', 1}, {'j', 0},
-	{'k', 0}, {'l', 0}, {'m', 0}, {'n', 0}, {'o', 1},
-	{'p', 0}, {'q', 0}, {'r', 0}, {'s', 0}, {'t', 0},
-	{'u', 1}, {'v', 0}, {'w', 0}, {'x', 0}, {'y', 0},
-	{'z', 0}
-};
+bool isMoum(char a) { return a == 'a' || a == 'i' || a == 'e' || a == 'o' || a == 'u'; }
 int main()
 {
 	while (true) {
@@ -17,7 +10,7 @@ int main()
 		bool flag1 = false;
 		bool flag2 = true;
 		for (char a : s) {
-			if (moum[a]) { flag1 = true; break; }
+			if (isMoum(a)) { flag1 = true; break; }
 		}
 		stack<char> munjayeol;
 		for (char a : s) {
@@ -27,10 +20,10 @@ int main()
 					if (a != 'e' && a != 'o') { flag2 = false; break; }
 				}
 				if (munjayeol.size() > 1) {
-					if (moum[munjayeol.top()] == moum[a]) {
+					if (isMoum(munjayeol.top()) == isMoum(a)) {
 						char n = munjayeol.top();
 						munjayeol.pop();
-						if (moum[munjayeol.top()] == moum[a]) { flag2 = false; break; }
+						if (isMoum(munjayeol.top()) == isMoum(a)) { flag2 = false; break; }
 						else { munjayeol.push(n); }
 					}
 				}
