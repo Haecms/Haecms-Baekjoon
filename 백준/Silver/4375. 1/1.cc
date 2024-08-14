@@ -1,16 +1,12 @@
-#include<bits/stdc++.h>
+#include <iostream>
 using namespace std;
-typedef long long ll;
 int a;
-int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);cout.tie(NULL);
+int main()
+{
+	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 	while (scanf("%d", &a) != EOF) {
-        ll b = 0, c = 0;
-		do {
-			b = (b%a * 10%a) + 1%a;
-			c++;
-		} while (b % a);
-		cout << c << "\n";
+		int c=1; long long m = 1;
+		while (m % a) { m = m * 10 + 1; m %= a; c++; }
+		cout << c << '\n';
 	}
 }
