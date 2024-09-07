@@ -1,20 +1,16 @@
-#include<bits/stdc++.h>
-using namespace std;
-int n, m;
-char c;
-int main()
-{
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
-	cin >> n >> m;
+#include<stdio.h>
+int main() {
+	int n, m, cnt;
+	char a[101];
+	scanf("%d%d", &n, &m);
 	for (int i = 0; i < n; i++) {
-		int cnt = -1;
-		for (int j = 0; j < m; j++) {
-			cin >> c;
-			if (c == 'c') { cout << "0" << " "; cnt = 0; }
-			else if (cnt >= 0) { cnt++;  cout << cnt << " "; }
-			else { cout << cnt << " "; }
+		cnt = -1;
+		scanf("%s", &a, sizeof(a));
+		for (int i = 0; i < m; i++) {
+			if (a[i] == 'c') { printf("0 "); cnt = 0; }
+			else printf("%d ", cnt == -1 ? -1 : ++cnt);
 		}
-		cout << '\n';
+		printf("\n");
 	}
+	return 0;
 }
