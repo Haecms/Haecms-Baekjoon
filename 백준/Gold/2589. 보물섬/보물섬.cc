@@ -1,7 +1,4 @@
-#include<stdio.h>
-#include<queue>
-#include<tuple>
-#include<memory.h>
+#include<bits/stdc++.h>
 using namespace std;
 int n, m, visited[51][51], mx=0;
 char a[51][51];
