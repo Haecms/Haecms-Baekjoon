@@ -1,5 +1,4 @@
 #include<iostream>
-#include<memory.h>
 using namespace std;
 int n, l, r, a[51][51], visited[51][51], area, area_cnt, area_sum, divide_person[2501];
 int dy[4] = { -1, 0, 1, 0 };
@@ -26,8 +25,6 @@ int main() {
 	int cnt = 0;
 	while (true) {
 		area = 1;
-		memset(divide_person, 0, sizeof(divide_person));
-		memset(visited, 0, sizeof(visited));
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				if (!visited[i][j]) {
@@ -40,13 +37,17 @@ int main() {
 				}
 			}
 		}
+		if (area - 1 == n * n) break;
+		cnt++;
 		for (int j = 0; j < n; j++) {
 			for (int k = 0; k < n; k++) {
 				a[j][k] = divide_person[visited[j][k]];
+				visited[j][k] = 0;
 			}
 		}
-		if (area - 1 == n * n) break;
-		cnt++;
+		for (int i = 0; i < area; i++) {
+			divide_person[i] = 0;
+		}
 	}
 	cout << cnt;
 }
