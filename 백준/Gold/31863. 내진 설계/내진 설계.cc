@@ -32,16 +32,11 @@ int main() {
 			int nx = dx[i] + x;
 			if (ny < 0 || nx < 0 || ny >= n || nx >= m || a[ny][nx] == '|') continue;
 			if (a[y][x] == '@') {
-				if (ny + dy[i] < 0 || nx + dx[i] < 0 || nx + dx[i] >= m || ny + dy[i] >= n || a[ny + dy[i]][nx + dx[i]] == '|') {
-
-				}
-				else {
-					visited[ny + dy[i]][nx + dx[i]]--;
-					if (!visited[ny + dy[i]][nx + dx[i]]) {
-						homeCnt--;
-						destroiedHomeCnt++;
-						destroied.push({ ny + dy[i],nx + dx[i] });
-					}
+				visited[ny + dy[i]][nx + dx[i]]--;
+				if (!visited[ny + dy[i]][nx + dx[i]]) {
+					homeCnt--;
+					destroiedHomeCnt++;
+					destroied.push({ ny + dy[i],nx + dx[i] });
 				}
 			}
 			visited[ny][nx]--;
