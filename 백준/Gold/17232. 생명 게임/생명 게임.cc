@@ -1,51 +1,41 @@
 #include<iostream>
 using namespace std;
-int n, m, t, k, a, b, realVisited[104][104], copyVisited[104][104];
-char c[104][104];
-
-void check(int y, int x) {
-	int cnt=0;
-	for (int i = y - k; i <= y + k; i++) {
-		if (i < 0 || i>=n) continue;
-		for (int j = x - k; j <= x + k; j++) {
-			if (j < 0 || j>=m) continue;
-			if (i == y && j == x) continue;
-			if (realVisited[i][j]) cnt++;
-		}
-		if (cnt < a || cnt > b) copyVisited[y][x] = 0;
-	}
-	if (cnt < a || cnt > b) copyVisited[y][x] = 0;
-	else if (!realVisited[y][x] && cnt > a && cnt <= b) copyVisited[y][x] = 1;
-	else if (realVisited[y][x] && cnt >= a && cnt <= b) copyVisited[y][x] = 1;
-}
-
+int n, m, t, k, a, b, realVisited[104][104], sumVisited[104][104];
+char c;
 int main() {
 	cin >> n >> m >> t >> k >> a >> b;
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < m; j++) {
-			cin >> c[i][j];
-			if (c[i][j] == '*') {
-				realVisited[i][j] = 1;
-				copyVisited[i][j] = 1;
-			}
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= m; j++) {
+			cin >> c;
+			if (c == '*')	realVisited[i][j] = 1;
+			else realVisited[i][j] = 0;
 		}
 	}
 	while (t--) {
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
-				check(i,j);
+		for (int i = 1; i <= n; i++) {
+			for (int j = 1; j <= m; j++) {
+				sumVisited[i][j] = realVisited[i][j] + sumVisited[i - 1][j] + sumVisited[i][j - 1] - sumVisited[i - 1][j - 1];
 			}
 		}
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
-				realVisited[i][j] = copyVisited[i][j];
+		for (int i = 1; i <= n; i++) {
+			for (int j = 1; j <= m; j++) {
+				int Y1 = max(1, i - k);
+				int X1 = max(1, j - k);
+				int Y2 = min(n, i + k);
+				int X2 = min(m, j + k);
+				int current = sumVisited[Y2][X2] + sumVisited[Y1 - 1][X1 - 1] - sumVisited[Y2][X1 - 1] - sumVisited[Y1 - 1][X2] - realVisited[i][j];
+				if (realVisited[i][j]) {
+					if (current < a) realVisited[i][j] = 0;
+					else if (current > b) realVisited[i][j] = 0;
+				}
+				else if(current >a && current <=b)  realVisited[i][j] = 1;
 			}
 		}
 	}
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < m; j++) {
-			if (realVisited[i][j]) cout << "*";
-			else cout << ".";
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= m; j++) {
+			if (realVisited[i][j] == 1) cout << '*';
+			else cout << '.';
 		}
 		cout << "\n";
 	}
