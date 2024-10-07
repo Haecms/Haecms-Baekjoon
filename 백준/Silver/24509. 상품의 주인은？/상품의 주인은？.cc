@@ -14,6 +14,16 @@ bool hello(pair<int, int> a, pair<int, int> b) {
 	}
 	return a.first > b.first;
 }
+bool check(int index, pair<int,int> e) {
+	for (int i = 0; i < 4; i++) {
+		if ((s[i] - '0') == e.second) {
+			return false;
+		}
+	}
+	s[index] = e.second + '0';
+	cout << e.second << " ";
+	return true;
+}
 int main() {
 	cin >> n;
 	while(n--) {
@@ -28,55 +38,15 @@ int main() {
 	sort(m3.begin(), m3.end(), hello);
 	sort(m4.begin(), m4.end(), hello);
 	for (auto m : m1) {
-		bool check = true;
-		for (int i = 0; i < 4; i++) {
-			if ((s[i] - '0') == m.second) {
-				check = false;
-			}
-		}
-		if (check) {
-			s[0] = m.second + '0';
-			cout << m.second << " ";
-			break;
-		}
+		if (check(0, m)) break;
 	}
 	for (auto m : m2) {
-		bool check = true;
-		for (int i = 0; i < 4; i++) {
-			if ((s[i] - '0') == m.second) {
-				check = false;
-			}
-		}
-		if (check) {
-			s[1] = m.second + '0';
-			cout << m.second << " ";
-			break;
-		}
+		if (check(1, m)) break;
 	}
 	for (auto m : m3) {
-		bool check = true;
-		for (int i = 0; i < 4; i++) {
-			if ((s[i] - '0') == m.second) {
-				check = false;
-			}
-		}
-		if (check) {
-			s[2] = m.second + '0';
-			cout << m.second << " ";
-			break;
-		}
+		if (check(2, m)) break;
 	}
 	for (auto m : m4) {
-		bool check = true;
-		for (int i = 0; i < 4; i++) {
-			if ((s[i] - '0') == m.second) {
-				check = false;
-			}
-		}
-		if (check) {
-			s[3] = m.second + '0';
-			cout << m.second;
-			break;
-		}
+		if (check(3, m)) break;
 	}
 }
