@@ -2,11 +2,8 @@
 #include<vector>
 #include<algorithm>
 using namespace std;
-int n,x,a,b,c,d;
-vector<pair<int, int>> m1;
-vector<pair<int, int>> m2;
-vector<pair<int, int>> m3;
-vector<pair<int, int>> m4;
+int n, x, a, b, c, d;
+vector<pair<int, int>> m1, m2, m3, m4;
 string s = "0000";
 bool hello(pair<int, int> a, pair<int, int> b) {
 	if (a.first == b.first) {
@@ -14,7 +11,20 @@ bool hello(pair<int, int> a, pair<int, int> b) {
 	}
 	return a.first > b.first;
 }
-bool check(int index, pair<int,int> e) {
+void pushGrade(vector<pair<int, int>>& v, int score, int grade) {
+	if (v.size() > 3) {
+		if (score > v[3].first || (score == v[3].first && grade < v[3].second)) {
+			v.pop_back();
+			v.push_back({ score, grade });
+			sort(v.begin(), v.end(), hello);
+		}
+	}
+	else {
+		v.push_back({ score, grade });
+		sort(v.begin(), v.end(), hello);
+	}
+}
+bool check(int index, pair<int, int> e) {
 	for (int i = 0; i < 4; i++) {
 		if ((s[i] - '0') == e.second) {
 			return false;
@@ -25,73 +35,14 @@ bool check(int index, pair<int,int> e) {
 	return true;
 }
 int main() {
+	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 	cin >> n;
-	while(n--) {
+	while (n--) {
 		cin >> x >> a >> b >> c >> d;
-		if (m1.size() > 3) {
-			if (a > m1[3].first) {
-				m1.pop_back();
-				m1.push_back({ a, x });
-				sort(m1.begin(), m1.end(), hello);
-			}
-			else if (a == m1[3].first && x < m1[3].second) {
-				m1.pop_back();
-				m1.push_back({ a, x });
-				sort(m1.begin(), m1.end(), hello);
-			}
-		}
-		else {
-			m1.push_back({ a, x });
-			sort(m1.begin(), m1.end(), hello);
-		}
-		if (m2.size() > 3) {
-			if (b > m2[3].first) {
-				m2.pop_back();
-				m2.push_back({ b, x });
-				sort(m2.begin(), m2.end(), hello);
-			}
-			else if (b == m2[3].first && x < m2[3].second) {
-				m2.pop_back();
-				m2.push_back({ b, x });
-				sort(m2.begin(), m2.end(), hello);
-			}
-		}
-		else {
-			m2.push_back({ b, x });
-			sort(m2.begin(), m2.end(), hello);
-		}
-		if (m3.size() > 3) {
-			if (c > m3[3].first) {
-				m3.pop_back();
-				m3.push_back({ c, x });
-				sort(m3.begin(), m3.end(), hello);
-			}
-			else if (c == m3[3].first && x < m3[3].second) {
-				m3.pop_back();
-				m3.push_back({ c, x });
-				sort(m3.begin(), m3.end(), hello);
-			}
-		}
-		else {
-			m3.push_back({ c, x });
-			sort(m3.begin(), m3.end(), hello);
-		}
-		if (m4.size() > 3) {
-			if (d > m4[3].first) {
-				m4.pop_back();
-				m4.push_back({ d, x });
-				sort(m4.begin(), m4.end(), hello);
-			}
-			else if (d == m4[3].first && x < m4[3].second) {
-				m4.pop_back();
-				m4.push_back({ d, x });
-				sort(m4.begin(), m4.end(), hello);
-			}
-		}
-		else {
-			m4.push_back({ d, x });
-			sort(m4.begin(), m4.end(), hello);
-		}
+		pushGrade(m1, a, x);
+		pushGrade(m2, b, x);
+		pushGrade(m3, c, x);
+		pushGrade(m4, d, x);
 	}
 	for (auto m : m1) {
 		if (check(0, m)) break;
