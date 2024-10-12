@@ -1,29 +1,34 @@
 #include<iostream>
-#include<map>
 using namespace std;
-long long n, m, a, maxCutHeight=0;
-map<int, int> trees_ex;
+long long n, m, trees[1000004], maxHeight = 0, leftHeight = 0, rightHeight = 0;
 int main() {
-    ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 	cin >> n >> m;
 	for (int i = 0; i < n; i++) {
-		cin >> a;
-		trees_ex[a]++;
+		cin >> trees[i];
+		rightHeight = max(trees[i], rightHeight);
 	}
-	int lowHeight = 0;
-	int highHeight = 2000000000;
-	
-	while (lowHeight <= highHeight) {
+	maxHeight = rightHeight;
+	while (true) {
 		long long curTrees = 0;
-		long long cutHeight = (highHeight + lowHeight) / 2;
-		for (auto b : trees_ex) {
-			if (b.first > cutHeight) curTrees += (b.first - cutHeight) * b.second;
+		long long ifTrees = 0;
+		for (int i = 0; i < n; i++) {
+			if (trees[i] > maxHeight) curTrees += trees[i] - maxHeight;
+			if (trees[i] > maxHeight - 1) ifTrees += trees[i] - maxHeight - 1;
 		}
-		if (curTrees >= m) {
-			maxCutHeight = cutHeight;
-			lowHeight = cutHeight + 1;
+		if (curTrees >= m && ifTrees < m) break;
+		else {
+			long long addHeight = (rightHeight - maxHeight) % 2 == 0 ? (rightHeight - maxHeight) / 2 : ((rightHeight - maxHeight) / 2) + 1;
+			long long minusHeight = (maxHeight - leftHeight) % 2 == 0 ? (maxHeight - leftHeight) / 2 : ((maxHeight - leftHeight) / 2) + 1;
+			if (curTrees < m) {
+				rightHeight = maxHeight;
+				maxHeight -= minusHeight;
+			}
+			else {
+				leftHeight = maxHeight;
+				maxHeight += addHeight;
+			}
 		}
-		else  highHeight = cutHeight -1;
 	}
-	cout << maxCutHeight << "\n";
+	cout << maxHeight << "\n";
 }
