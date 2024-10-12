@@ -1,20 +1,23 @@
 #include<iostream>
-#include<algorithm>
+#include<map>
 using namespace std;
-long long n, m, trees[1000004], cutHeight, maxCutHeight=0;
+long long n, m, a, maxCutHeight=0;
+map<int, int> trees_ex;
 int main() {
+    ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
 	cin >> n >> m;
-	for(int i=0; i<n; i++) cin >> trees[i];
-	
-	sort(trees, trees + n);
-	long long lowHeight = 0;
-	long long highHeight = trees[n - 1];
+	for (int i = 0; i < n; i++) {
+		cin >> a;
+		trees_ex[a]++;
+	}
+	int lowHeight = 0;
+	int highHeight = 2000000000;
 	
 	while (lowHeight <= highHeight) {
 		long long curTrees = 0;
-		cutHeight = (highHeight + lowHeight) / 2;
-		for (int i = 0; i < n; i++) {
-			if (trees[i] > cutHeight) curTrees += trees[i] - cutHeight;
+		long long cutHeight = (highHeight + lowHeight) / 2;
+		for (auto b : trees_ex) {
+			if (b.first > cutHeight) curTrees += (b.first - cutHeight) * b.second;
 		}
 		if (curTrees >= m) {
 			maxCutHeight = cutHeight;
