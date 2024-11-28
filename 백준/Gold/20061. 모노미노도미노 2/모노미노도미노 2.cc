@@ -184,12 +184,8 @@ int main() {
 		// 아래쪽의 금단의 선에 데이터가 있으면 그 줄 만큼 아래쪽 줄 지우고 데이터 옮기기
 		checkDownBanData();
 		removeDown();
-		checkDownData();
-		removeDown();
 		// 오른쪽의 금단의 선에 데이터가 있으면 그 줄 만큼 오른쪽 줄 지우고 데이터 옮기기
 		checkRightBanData();
-		removeRight();
-		checkRightData();
 		removeRight();
 	}
 	int block = getBlock();
