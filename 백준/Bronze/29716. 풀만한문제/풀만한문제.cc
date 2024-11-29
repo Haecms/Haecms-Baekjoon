@@ -2,17 +2,17 @@
 #include<string>
 using namespace std;
 int n, m, ret=0;
-string s, stringflash;
+string s;
 int main() {
 	cin >> n >> m;
-	getline(cin, stringflash);
+	cin.ignore();
 	while (m--) {
 		getline(cin, s);
 		int point = 0;
 		for (char c : s) {
-			if (c >= 'A' && c <= 'Z') point += 4;
-			else if (c == ' ') point += 1;
-			else point += 2;
+			if (c >= 'A' && c <= 'Z') point+=4;
+			else if (c == ' ') point+=1;
+			else point+=2;
 		}
 		if (point <= n) ret++;
 	}
