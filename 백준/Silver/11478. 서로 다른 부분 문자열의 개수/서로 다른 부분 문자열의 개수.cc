@@ -2,7 +2,6 @@
 #include<unordered_set>
 #include<string>
 using namespace std;
-int visited[1004];
 string s;
 unordered_set<string> ms;
 void pushData(string cs, int index) {
@@ -12,6 +11,7 @@ void pushData(string cs, int index) {
 	}
 }
 int main() {
+	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 	cin >> s;
 	for (int i = 0; i < s.size(); i++) {
 		pushData(string(1,s[i]), i);
