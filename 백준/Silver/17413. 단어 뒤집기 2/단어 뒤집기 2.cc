@@ -8,15 +8,17 @@ int main() {
 	int curPos = 0;
 	string cs = "";
 	while (true) {
-		int arrowPos1 = s.find('<', curPos) == -1 ? 200000 : s.find('<', curPos);
-		int arrowPos2 = s.find('>', curPos) == -1 ? 200000 : s.find('>', curPos);
-		int spacePos  = s.find(' ', curPos) == -1 ? 200000 : s.find(' ', curPos);
+		int arrowPos1 = s.find('<', curPos);
+		int arrowPos2 = s.find('>', arrowPos1);
+		int spacePos = s.find(' ', curPos);
 		if (arrowPos1 == spacePos) {
 			for (int i = s.size() - 1; i >= curPos; i--) {
 				cs += string(1, s[i]);
 			}
 			break;
 		}
+		arrowPos1 = arrowPos1 == -1 ? 2000000 : arrowPos1;
+		spacePos = spacePos == -1 ? 2000000 : spacePos;
 		if (arrowPos1 > spacePos) {
 			for (int i = spacePos - 1; i >= curPos; i--) {
 				cs += string(1, s[i]);
