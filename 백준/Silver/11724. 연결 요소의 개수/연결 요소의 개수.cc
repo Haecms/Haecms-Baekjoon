@@ -1,8 +1,8 @@
 #include<iostream>
 #include<vector>
-#include<map>
+#include<unordered_map>
 using namespace std;
-map<int, vector<int>> ma;
+unordered_map<int, vector<int>> ma;
 int n, m, visited[1001], u, x, cnt=0;
 void check(int num) {
 	visited[num] = 1;
