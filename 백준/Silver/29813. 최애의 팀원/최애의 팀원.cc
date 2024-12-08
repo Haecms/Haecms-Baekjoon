@@ -1,28 +1,26 @@
-#include<iostream>
+#include<stdio.h>
 #include<queue>
-using namespace std;
+#include<string>
 int n, m;
-string s;
-queue<pair<string, int>> q;
+char c[4];
+std::string s;
+std::queue<std::pair<std::string, int>> q;
 int main() {
-	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-	cin >> n;
+	scanf("%d", &n);
 	while (n--) {
-		cin >> s >> m;
+		scanf("%s %d", c, &m);
+		s = c;
 		q.push({ s, m });
 	}
 	while (q.size() != 1) {
-		string student = q.front().first;
 		int num = q.front().second;
 		q.pop();
 		for (int i = 0; i < num - 1; i++) {
-			string nstudetn = q.front().first;
-			int nnum = q.front().second;
+			q.push(q.front());
 			q.pop();
-			q.push({ nstudetn, nnum });
 		}
 		q.pop();
 	}
-	cout << q.front().first << "\n";
+	printf("%s", q.front().first.c_str());
 	return 0;
 }
