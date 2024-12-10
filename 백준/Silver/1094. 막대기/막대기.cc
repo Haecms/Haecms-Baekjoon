@@ -1,19 +1,9 @@
-#include<bits/stdc++.h>
+#include<iostream>
 using namespace std;
-int n,a,b=64,start=64;
-vector<int> intArray = {64};
+int n,m;
 int main() {
 	cin >> n;
-	while(b != n) {
-		start /= 2;
-		b = 0;
-		intArray.pop_back();
-		for (auto c : intArray) b += c;
-		intArray.push_back(start);
-		if (b + start < n) {
-			intArray.push_back(start);
-		}
-		b += start;
-	}
-	cout << intArray.size() << "\n";
+	for (;n;n >>= 1) m += n & 1;
+	cout << m << "\n";
+	return 0;
 }
