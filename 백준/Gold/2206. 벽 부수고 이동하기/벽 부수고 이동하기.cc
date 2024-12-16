@@ -18,34 +18,30 @@ void go() {
         int gubun = q.front().gubun;
         if (y == n - 1 && x == m - 1) break;
         q.pop();
-        if (gubun == 'N') {
-            for (int i = 0; i < 4; i++) {
-                int ny = dy[i] + y;
-                int nx = dx[i] + x;
-                if (ny < 0 || nx < 0 || ny >= n || nx >= m || visitedOriginal[ny][nx]) continue;
-                if (ma[ny][nx]) {
-                    q.push({ ny,nx, 'Y' });
-                    visitedTelepote[ny][nx] = visitedTelepote[y][x] + 1;
-                }
-                else {
-                    q.push({ ny,nx,'N' });
-                    visitedOriginal[ny][nx] = visitedOriginal[y][x] + 1;
-                    visitedTelepote[ny][nx] = visitedTelepote[y][x] + 1;
-                }
-            }
-        }
-        else {
-            for (int i = 0; i < 4; i++) {
-                int ny = dy[i] + y;
-                int nx = dx[i] + x;
-                if (ny < 0 || nx < 0 || ny >= n || nx >= m || ma[ny][nx] || visitedTelepote[ny][nx]) continue;
-                q.push({ ny,nx, 'Y' });
-                visitedTelepote[ny][nx] = visitedTelepote[y][x] + 1;
-            }
-        }
-    }
+		for (int i = 0; i < 4; i++) {
+			int ny = dy[i] + y;
+			int nx = dx[i] + x;
+			if (ny < 0 || nx < 0 || ny >= n || nx >= m) continue;
+			if (gubun == 'N' && !visitedOriginal[ny][nx]) {
+				if (ma[ny][nx]) {
+					q.push({ ny,nx, 'Y' });
+					visitedTelepote[ny][nx] = visitedTelepote[y][x] + 1;
+				}
+				else {
+					q.push({ ny,nx,'N' });
+					visitedOriginal[ny][nx] = visitedOriginal[y][x] + 1;
+					visitedTelepote[ny][nx] = visitedTelepote[y][x] + 1;
+				}
+			}
+			else if (gubun == 'Y' && !ma[ny][nx] && !visitedTelepote[ny][nx]) {
+				q.push({ ny,nx, 'Y' });
+				visitedTelepote[ny][nx] = visitedTelepote[y][x] + 1;
+			}
+		}
+	}
 }
 int main() {
+    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
     cin >> n >> m;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
