@@ -1,6 +1,6 @@
 #include<iostream>
 using namespace std;
-int n, m, a, ma[54][54], visited[54][54], cnt2, changeCnt, area[1000004];
+int n, m, a, ma[54][54], visited[54][54], cnt2, changeCnt, area[2504];
 int dy[4] = { 0, -1, 0, 1 };
 int dx[4] = { -1, 0, 1, 0 };
 void go(int y, int x, int count) {
