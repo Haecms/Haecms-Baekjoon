@@ -4,6 +4,7 @@ char c[1004][1004], c_c[1004][1004];
 int n;
 int dy[8] = { -1,-1,-1,0,0,1,1,1 };
 int dx[8] = { -1,0,1,-1,1,-1,0,1 };
+string ret;
 int main() {
 	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 	cin >> n;
@@ -29,8 +30,9 @@ int main() {
 	}
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
-			cout << c_c[i][j];
+			ret += c_c[i][j];
 		}
-		cout << "\n";
+		ret += "\n";
 	}
+	cout << ret;
 }
