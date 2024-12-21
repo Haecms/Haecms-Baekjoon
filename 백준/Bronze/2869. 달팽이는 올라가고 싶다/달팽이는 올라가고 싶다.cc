@@ -1,9 +1,7 @@
-#include<iostream>
-using namespace std;
+#include<stdio.h>
 int n, m, a;
 int main() {
-	cin >> n >> m >> a;
+	scanf("%d%d%d", &n,&m,&a);
 	int d = n - m;
-	int destination = a - n;
-	destination % d ? cout << destination / d + 2 : cout << destination / d + 1;
+	(a-n) % d ? printf("%d", (a-n)/d+2) : printf("%d", (a-n)/d+1);
 }
