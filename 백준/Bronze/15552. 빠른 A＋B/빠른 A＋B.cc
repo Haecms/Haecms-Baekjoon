@@ -1,9 +1,11 @@
-#include<stdio.h>
+#include<iostream>
+using namespace std;
 int main() {
+	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 	int n, a, b;
-	scanf("%d", &n);
+	cin >> n;
 	while (n--) {
-		scanf("%d %d", &a, &b);
-		printf("%d\n", a + b);
+		cin >> a >> b;
+		cout << a + b << "\n";
 	}
 }
