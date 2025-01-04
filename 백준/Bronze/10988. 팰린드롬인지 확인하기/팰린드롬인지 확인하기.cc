@@ -1,11 +1,14 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include<stdio.h>
+#include<string.h>
 int main() {
-    int answer = 1;
-	string input = "";
-	cin >> input;
-	string input2 = input;
-	reverse(input2.begin(), input2.end());
-	if (input2 != input) answer = 0;
-	cout << answer;
+	char c[104];
+	scanf("%s", c);
+	int flag = 1;
+	for (int i = 0; i < strlen(c); i++) {
+		if (c[i] != c[strlen(c) - 1 - i]) {
+			flag = 0;
+			break;
+		}
+	}
+	printf("%d", flag);
 }
