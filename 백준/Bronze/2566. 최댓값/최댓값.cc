@@ -1,15 +1,9 @@
 #include<stdio.h>
 int main() {
-	int a,b=0,c,d;
-	for (int i = 1; i <= 9; i++) {
-		for (int j = 1; j <= 9; j++) {
-			scanf("%d", &a);
-			if (b <= a) {
-				b = a;
-				c = i;
-				d = j;
-			}
-		}
+	int a,b=0,c;
+	for (int i = 1; i <= 81; i++) {
+		scanf("%d", &a);
+		if (b <= a) b = a, c = i;
 	}
-	printf("%d\n%d %d", b, c, d);
+	printf("%d\n%d %d", b, c%9 ? c/9+1 : c/9, c%9 ? c%9 : 9);
 }
