@@ -7,7 +7,7 @@ int n, m, a, visited[10004];
 vector<int> v;
 string s = "";
 void go(string s, int cnt) {
-	if (cnt == m) cout << s.substr(0, s.size()-1) << "\n";
+	if (cnt == m) cout << s << "\n";
 	else {
 		for (int i : v) {
 			if (visited[i]) continue;
