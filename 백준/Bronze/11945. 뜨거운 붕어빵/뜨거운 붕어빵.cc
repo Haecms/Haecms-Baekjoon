@@ -1,10 +1,11 @@
 #include<stdio.h>
-int n, m, a[14],d; char c;
+int n, m; char a[14];
 int main() {
 	scanf("%d%d", &n, &m);
 	while (n--) {
-		d = m; while (d--) scanf(" %c", &c), a[m - d] = c - '0';
-		d = m+1; while(--d) printf("%d", a[d]); printf("\n");
+		scanf("%s", a);
+		for (int i = m - 1; i >= 0; i--) printf("%c", a[i]);
+		printf("\n");
 	}
 	return 0;
 }
