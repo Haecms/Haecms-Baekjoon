@@ -1,20 +1,10 @@
-#include<iostream>
-using namespace std;
-int n, m, a[14][14];
-char c;
+#include<stdio.h>
+int n, m, a[14],d; char c;
 int main() {
-	cin >> n >> m;
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < m; j++) {
-			cin >> c;
-			a[i][j] = c - '0';
-		}
-	}
-	for (int i = 0; i < n; i++) {
-		for (int j = m-1; j >= 0; j--) {
-			cout << a[i][j];
-		}
-		cout << "\n";
+	scanf("%d%d", &n, &m);
+	while (n--) {
+		d = m; while (d--) scanf(" %c", &c), a[m - d] = c - '0';
+		d = m+1; while(--d) printf("%d", a[d]); printf("\n");
 	}
 	return 0;
 }
