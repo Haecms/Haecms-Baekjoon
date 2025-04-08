@@ -22,6 +22,7 @@ bool check(int y, int x, int size) {
 }
 
 void goDFS(int y, int x, int size, int cnt) {
+	if (ret < cnt) return;
 	if (aCnt[size] > 5) return;
 	if (y >= 10) {
 		ret = min(ret, cnt);
@@ -33,7 +34,7 @@ void goDFS(int y, int x, int size, int cnt) {
 		if (check(y, x, i)) {
 			draw(y, x, i, 0);
 			aCnt[i]++;
-			goDFS(y,x+i,i,cnt+1);
+			goDFS(y, x + i, i, cnt + 1);
 			aCnt[i]--;
 			draw(y, x, i, 1);
 		}
