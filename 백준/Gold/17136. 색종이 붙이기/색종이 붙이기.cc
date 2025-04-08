@@ -23,19 +23,25 @@ bool check(int y, int x, int size) {
 
 void goDFS(int y, int x, int size, int cnt) {
 	if (ret < cnt) return;
-	if (aCnt[size] > 5) return;
-	if (y >= 10) {
+	if (x == 10) {
+		goDFS(y + 1, 0, size, cnt);
+		return;
+	}
+	if (y == 10) {
 		ret = min(ret, cnt);
 		return;
 	}
-	if (!a[y][x] && x < 10) goDFS(y, x + 1, size, cnt);
-	else if (!a[y][x]) goDFS(y + 1, 0, size, cnt);
+	if (!a[y][x]) {
+		goDFS(y, x + 1, size, cnt);
+		return;
+	}
 	for (int i = 4; i >= 0; i--) {
+		if (aCnt[i+1] == 5) continue;
 		if (check(y, x, i)) {
 			draw(y, x, i, 0);
-			aCnt[i]++;
+			aCnt[i+1]++;
 			goDFS(y, x + i, i, cnt + 1);
-			aCnt[i]--;
+			aCnt[i+1]--;
 			draw(y, x, i, 1);
 		}
 	}
