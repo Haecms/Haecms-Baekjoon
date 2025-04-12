@@ -38,6 +38,7 @@ int main() {
 				break;
 			}
 			pq.pop();
+            if(visited[curY][curX]) continue;
 			visited[curY][curX] = 1;
 			for (int i = 0; i < 4; i++) {
 				int ny = dy[i] + curY;
