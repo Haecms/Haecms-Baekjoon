@@ -12,6 +12,6 @@ int main() {
 		}
 		ret += (s[i] - 96) * temp ;
 	}
-	cout << ret << "\n";
+	cout << ret % 1234567891 << "\n";
 	return 0;
 }
