@@ -1,9 +1,9 @@
 #include<iostream>
 using namespace std;
+long long n, ret=1;
 int main() {
-    int n, ret=1;
-    cin >> n;
-    for(int i=2; i<=n; i++) ret *= i;
-    cout << ret <<"\n";
-    return 0;
+	cin >> n;
+	for (int i = 1; i <= n; i++) ret *= i;
+	cout << ret << "\n";
+	return 0;
 }
