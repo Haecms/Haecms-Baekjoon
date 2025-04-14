@@ -1,24 +1,26 @@
 #include<iostream>
-#include<map>
 #include<vector>
 using namespace std;
-int n, m, a, b, visited[101], ret;
-map<int, vector<int>> ma;
-void go(int curPoint) {
-	visited[curPoint] = 1;
-	for (int a : ma[curPoint]) {
-		if (!visited[a]) go(a);
+vector<int> v[104];
+int n, m, a,b, cnt, visited[104];
+
+void go(int idx) {
+	visited[idx] = 1;
+	for (int vv : v[idx]) {
+		if (visited[vv]) continue;
+		go(vv);
 	}
 }
+
 int main() {
 	cin >> n >> m;
-	while (m--) {
+	while(m--) {
 		cin >> a >> b;
-		ma[a].push_back(b);
-		ma[b].push_back(a);
+		v[a].push_back(b);
+		v[b].push_back(a);
 	}
 	go(1);
-	for (int i = 1; i <= 100; i++)  ret += visited[i]; 
-	cout << ret-1 << "\n";
+	for (int i = 0; i < 104; i++) if (visited[i]) cnt++;
+	cout << cnt-1 << "\n";
 	return 0;
 }
