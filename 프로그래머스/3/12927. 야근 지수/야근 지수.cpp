@@ -7,30 +7,24 @@ using namespace std;
 long long solution(int n, vector<int> works) {
     long long answer = 0;
 	int bigWork = 0;
-	int smallWork = 0;
-	for (int a : works) bigWork += a;
-	if (n >= bigWork) return 0;
-	int bestWork = 0;
-	while (smallWork <= bigWork) {
-		long long middleWork = (smallWork + bigWork) / 2;
-		long long sum_diff = 0;
-		for (int work : works) {
-			if (work > middleWork) sum_diff += work - middleWork;
+	for (int work : works) bigWork += work;
+	if (bigWork <= n) return 0;
+
+	sort(works.begin(), works.end(), greater<int>());
+	int idx = works.size() ? 1 : 0;
+	for (int i = 0; i < n; i++) {
+		int &firstValue = works[0];
+		if(idx == works.size()) idx = works.size() ? 1 : 0;
+
+		if (firstValue > works[idx]) {
+			firstValue--;
+			idx = works.size() ? 1 : 0;
 		}
-		if (sum_diff > n) smallWork = middleWork + 1;
 		else {
-			bigWork = middleWork - 1;
-			bestWork = middleWork;
+			works[idx]--;
+			if (idx != works.size() - 1 && works[idx] < works[idx+1]) idx++;
 		}
 	}
-	for (int& work : works) {
-		if (work > bestWork) {
-			n -= (work - bestWork);
-			work = bestWork;
-		}
-	}
-    sort(works.begin(), works.end(), greater<int>());
-	while (n) works[n-- -1]--;
 	for (int work : works) answer += pow(work, 2);
     return answer;
 }
