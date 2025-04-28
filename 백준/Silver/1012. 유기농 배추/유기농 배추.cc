@@ -1,45 +1,38 @@
-#include <bits/stdc++.h>
+#include<iostream>
 using namespace std;
-const int max_n = 54;
-int T,N,M,K, y, x;
-int a[max_n][max_n];
-int visited[max_n][max_n];
-int dy[4] = { -1, 0, 1, 0 };
-int dx[4] = { 0, 1, 0, -1 };
-void dfs(int ny, int nx) {
-	visited[ny][nx] = 1;
+int t, a[54][54], n,m,k, y, x;
+int dy[4] = { 0,-1,0,1 };
+int dx[4] = { -1,0,1,0 };
+
+void go(int y, int x) {
+	a[y][x] = 0;
 	for (int i = 0; i < 4; i++) {
-		int py = ny + dy[i];
-		int px = nx + dx[i];
-		if (py < 0 || py >= M || px < 0 || px >= N || a[py][px] ==0) continue;
-		if (visited[py][px]) continue;
-		dfs(py, px);
+		int ny = dy[i] + y;
+		int nx = dx[i] + x;
+		if (ny < 0 || nx < 0 || ny >= n || nx >= m || !a[ny][nx]) continue;
+		go(ny, nx);
 	}
 }
+
 int main() {
-    cin.tie(NULL);cout.tie(NULL);
-	cin >> T;
-	for (int i = 0; i < T; i++) {
-		int ret = 0;
-		cin >> N >> M >> K;
-		for (int j = 0; j < K; j++) {
+	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+	cin >> t;
+	while (t--) {
+		cin >> m >> n >> k;
+		for (int i = 0; i < k; i++) {
 			cin >> x >> y;
 			a[y][x] = 1;
 		}
-		for (int j = 0; j < M; j++) {
-			for (int k = 0; k < N; k++) {
-				if (a[j][k] && !visited[j][k]) {
-					dfs(j, k);
-					ret++;
+		int cnt=0;
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < m; j++) {
+				if (a[i][j]) {
+					cnt++;
+					go(i, j);
 				}
 			}
 		}
-		cout << ret << "\n";
-		for (int j = 0; j < M; j++) {
-			for (int k = 0; k < N; k++) {
-				a[j][k] = 0;
-				visited[j][k] = 0;
-			}
-		}
+		cout << cnt << "\n";
 	}
+	return 0;
 }
