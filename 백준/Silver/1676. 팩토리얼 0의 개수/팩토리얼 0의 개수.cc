@@ -1,15 +1,8 @@
 #include<iostream>
 using namespace std;
 int main() {
-	int n, cnt=0;
+	int n;
 	cin >> n;
-	for (int i = 1; i <= n; i++) {
-		int a = i;
-		while (!(a % 5)) {
-			a /= 5;
-			cnt++;
-		}
-	}
-	cout << cnt << "\n";
+	cout << n / 5 + n / 25 + n / 125 << "\n";
 	return 0;
 }
