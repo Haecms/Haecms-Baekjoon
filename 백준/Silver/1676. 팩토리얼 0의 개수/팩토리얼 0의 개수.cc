@@ -1,15 +1,15 @@
 #include<iostream>
 using namespace std;
-int n, ret;
 int main() {
+	int n, cnt=0;
 	cin >> n;
-	for (int i = 0; i <= n; i++) {
-		int temp = i;
-		while (temp >= 5 && !(temp % 5)) {
-			ret++;
-			temp /= 5;
+	for (int i = 1; i <= n; i++) {
+		int a = i;
+		while (!(a % 5)) {
+			a /= 5;
+			cnt++;
 		}
 	}
-	cout << ret << "\n";
+	cout << cnt << "\n";
 	return 0;
 }
