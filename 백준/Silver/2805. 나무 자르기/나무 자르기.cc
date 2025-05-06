@@ -1,34 +1,25 @@
 #include<iostream>
+#include<vector>
 using namespace std;
-long long n, m, trees[1000004], maxHeight = 0, leftHeight = 0, rightHeight = 0;
+int n, m, vv, ret;
+vector<int> v;
 int main() {
-	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 	cin >> n >> m;
-	for (int i = 0; i < n; i++) {
-		cin >> trees[i];
-		rightHeight = max(trees[i], rightHeight);
-	}
-	maxHeight = rightHeight;
-	while (true) {
-		long long curTrees = 0;
-		long long ifTrees = 0;
-		for (int i = 0; i < n; i++) {
-			if (trees[i] > maxHeight) curTrees += trees[i] - maxHeight;
-			if (trees[i] > maxHeight - 1) ifTrees += trees[i] - maxHeight - 1;
+	for (int i = 0; i < n; i++) cin >> vv, v.push_back(vv);
+	int lv = 0, rv=2000000000;
+	while (lv <= rv) {
+		long long middle = (lv + rv) / 2;
+		long long sum = 0;
+		for (int a : v) {
+			if (a > middle) sum += a - middle;
 		}
-		if (curTrees >= m && ifTrees < m) break;
-		else {
-			long long addHeight = (rightHeight - maxHeight) % 2 == 0 ? (rightHeight - maxHeight) / 2 : ((rightHeight - maxHeight) / 2) + 1;
-			long long minusHeight = (maxHeight - leftHeight) % 2 == 0 ? (maxHeight - leftHeight) / 2 : ((maxHeight - leftHeight) / 2) + 1;
-			if (curTrees < m) {
-				rightHeight = maxHeight;
-				maxHeight -= minusHeight;
-			}
-			else {
-				leftHeight = maxHeight;
-				maxHeight += addHeight;
-			}
+		if (m <= sum) {
+			ret = middle;
+			lv = middle + 1;
 		}
+		else rv = middle - 1;
 	}
-	cout << maxHeight << "\n";
+	cout << ret << "\n";
+	return 0;
 }
