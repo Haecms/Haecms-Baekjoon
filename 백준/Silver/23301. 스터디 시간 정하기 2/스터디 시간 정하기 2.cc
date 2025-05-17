@@ -1,6 +1,7 @@
 #include<stdio.h>
-int n, m, k, f, t, a[1004], maxSum, ret;
 int main() {
+	int n, m, k, f, t, a[1004], maxSum=0, ret;
+	for (int i = 0; i < 1004; i++) a[i] = 0;
 	scanf("%d %d", &n, &m);
 	while (n--) {
 		scanf("%d", &k);
