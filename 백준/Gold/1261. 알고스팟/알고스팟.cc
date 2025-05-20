@@ -34,16 +34,9 @@ int main() {
 			int ny = y + dy[i];
 			int nx = x + dx[i];
 			if (ny < 0 || nx < 0 || ny >= m || nx >= n) continue;
-			if (a[ny][nx]) {
-				if (visited[ny][nx] && visited[ny][nx] <= cnt + 1) continue;
-				visited[ny][nx] = cnt + 1;
-				pq.push({ ny,nx, cnt + 1 });
-			}
-			else {
-				if (visited[ny][nx] && visited[ny][nx] <= cnt) continue;
-				visited[ny][nx] = cnt;
-				pq.push({ ny,nx, cnt });
-			}
+			if (visited[ny][nx] && visited[ny][nx] <= cnt + a[ny][nx]) continue;
+			visited[ny][nx] = cnt + a[ny][nx];
+			pq.push({ ny,nx, cnt + a[ny][nx] });
 		}
 	}
 	return 0;
