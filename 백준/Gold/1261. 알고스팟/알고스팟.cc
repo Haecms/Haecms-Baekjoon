@@ -26,7 +26,6 @@ int main() {
 		int x = pq.top().x;
 		int cnt = pq.top().cnt;
 		pq.pop();
-		if (visited[y][x] < cnt) continue;
 		if (y == m - 1 && x == n - 1) {
 			cout << cnt - 1 << "\n";
 			break;
