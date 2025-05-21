@@ -1,10 +1,9 @@
-#include<iostream>
+#include<stdio.h>
 #include<vector>
 #include<algorithm>
-using namespace std;
 int n, a[26][26];
 char c;
-vector<int> v;
+std::vector<int> v;
 int dy[4] = { 0,1,0,-1 };
 int dx[4] = { 1,0,-1,0 };
 int go(int y, int x) {
@@ -19,23 +18,20 @@ int go(int y, int x) {
 	return ret;
 }
 int main() {
-	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-	cin >> n;
+	scanf("%d", &n);
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
-			cin >> c;
+			scanf(" %c", &c);
 			a[i][j] = c - '0';
 		}
 	}
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
-			if (a[i][j]) {
-				v.push_back(go(i, j));
-			}
+			if (a[i][j]) v.push_back(go(i, j));
 		}
 	}
 	sort(v.begin(), v.end());
-	cout << v.size() << "\n";
-	for (int ret : v) cout << ret << "\n";
+	printf("%d\n", v.size());
+	for (int ret : v) printf("%d\n", ret);
 	return 0;
 }
