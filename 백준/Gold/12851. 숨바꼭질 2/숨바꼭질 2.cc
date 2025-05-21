@@ -18,17 +18,12 @@ int main() {
 			ret++;
 			continue;
 		}
-		if (cur - 1 >= 0 && visited[cur - 1] >= cnt + 1) {
-			visited[cur - 1] = cnt + 1;
-			q.push({ cur - 1, cnt + 1 });
-		}
-		if (cur + 1 <= 100000 && visited[cur + 1] >= cnt + 1) {
-			visited[cur + 1] = cnt + 1;
-			q.push({ cur + 1, cnt + 1 });
-		}
-		if (cur * 2 <= 200004 && visited[cur * 2] >= cnt * 1) {
-			visited[cur * 2] = cnt + 1;
-			q.push({ cur * 2, cnt + 1 });
+		int next_pos[3] = {cur - 1, cur + 1, cur * 2};
+		for (int nxt : next_pos) {
+			if (nxt >= 0 && nxt <= 200000 && visited[nxt] >= cnt + 1) {
+				visited[nxt] = cnt + 1;
+				q.push({ nxt, cnt + 1 });
+			}
 		}
 	}
 	cout << maxCnt-1 << "\n" << ret << "\n";
