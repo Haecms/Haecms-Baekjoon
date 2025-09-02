@@ -1,35 +1,23 @@
 #include<iostream>
-#include<queue>
-#include<vector>
 using namespace std;
-int n, k, a,b,c,d, ret;
-struct A { int time, money; };
-struct B { int idx, time, money; };
-vector<A> walk, bicycle;
-queue<B> q;
+int n, k, dp[100004],a,b,c,d,ret;
 int main() {
 	ios_base::sync_with_stdio(0); cin.tie(0);
 	cin >> n >> k;
+	dp[0] = 1;
 	for (int i = 0; i < n; i++) {
 		cin >> a >> b >> c >> d;
-		walk.push_back({ a,b });
-		bicycle.push_back({ c,d });
-	}
-	q.push({ 0, walk[0].time, walk[0].money });
-	q.push({ 0, bicycle[0].time, bicycle[0].money });
-	while (q.size()) {
-		int idx = q.front().idx;
-		int time = q.front().time;
-		int money = q.front().money;
-		q.pop();
-		if (time > k) continue;
-		if (idx == n - 1) {
-			ret = max(ret, money);
-			continue;
+		for (int j = k; j >= 0; j--) {
+			if (dp[j]) {
+				if (j + a <= k) dp[j + a] = max(dp[j + a], dp[j] + b);
+				if (j + c <= k) dp[j + c] = max(dp[j + c], dp[j] + d);
+				dp[j] = 0;
+			}
 		}
-		q.push({ idx + 1, time + walk[idx + 1].time, money + walk[idx + 1].money });
-		q.push({ idx + 1, time + bicycle[idx + 1].time, money + bicycle[idx + 1].money });
 	}
-	cout << ret << "\n";
+	for (int i = 0; i <= k; i++) {
+		ret = max(ret, dp[i]);
+	}
+	cout << ret-1 << "\n";
 	return 0;
 }
