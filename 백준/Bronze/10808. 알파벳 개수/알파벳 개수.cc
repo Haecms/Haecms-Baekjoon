@@ -1,21 +1,10 @@
-#include<bits/stdc++.h>
+#include<iostream>
 using namespace std;
-
+string s;
+int a[26];
 int main() {
-    map<char, int> dictAlphabet = {
-	    {'a',0},{'b',0},{'c',0},{'d',0},{'e',0},
-        {'f',0},{'g',0},{'h',0},{'i',0},{'j',0},
-        {'k',0},{'l',0},{'m',0},{'n',0},{'o',0},
-        {'p',0},{'q',0},{'r',0},{'s',0},{'t',0},
-        {'u',0},{'v',0},{'w',0},{'x',0},{'y',0},
-        {'z',0}
-    };
-    string s = "";
-    cin >> s;
-    for(char alphabet : s) {
-        dictAlphabet[alphabet]++;
-    }
-    for(auto& pair : dictAlphabet){
-        cout << pair.second << " ";
-    }
+	cin >> s;
+	for (int i = 0; i < s.size(); i++) a[s[i] - 'a']++;
+	for (int i = 0; i < 26; i++) cout << a[i] << " ";
+	return 0;
 }
