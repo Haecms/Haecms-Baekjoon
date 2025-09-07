@@ -1,22 +1,18 @@
-#include <bits/stdc++.h>
+#include<iostream>
 using namespace std;
-
-int n, m, number, need, ret;
-map<int, int> hello;
-int main()
-{
+int n, m, a[100004],b, cnt;
+int main() {
 	cin >> n >> m;
-	for (int i = 0; i < n; i++) {
-		cin >> number;
-		hello[number]++;
+	while (n--) {
+		cin >> b;
+		a[b]++;
 	}
-	for (auto c : hello) {
-		need = m - c.first;
-		if (hello[need] > 0 && hello[c.first] > 0 && need != c.first) {
-		    ret++;
-		    hello[c.first]--;
-		    hello[need]--;
+	for (int i = 1; i < 100001; i++) {
+		if (a[i] && m-i > 0 && m-i < 100001 && a[m-i] && i != m-i) {
+			cnt++;
+			a[i]--; a[m-i]--;
 		}
 	}
-	cout << ret;
+	cout << cnt << "\n";
+	return 0;
 }
