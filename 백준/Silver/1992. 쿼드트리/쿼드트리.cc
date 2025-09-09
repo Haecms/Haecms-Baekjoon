@@ -1,36 +1,32 @@
-#include <bits/stdc++.h>
+#include<iostream>
+#include<string>
 using namespace std;
-char s, a[104][104];
-
-string quad(int y, int x, int size) {
-	if (size == 1) return string(1, a[y][x]);
-	char b = a[y][x];
-	string ret;
-	for (int i = y; i < y + size; i++) {
-		for (int j = x; j < x + size; j++) {
-			if (b != a[i][j]) {
-				int nsize = size / 2;
-				ret += "(";
-				ret += quad(y, x, nsize);
-				ret += quad(y, x + nsize, nsize);
-				ret += quad(y + nsize, x, nsize);
-				ret += quad(y + nsize, x + nsize, nsize);
+int n;
+char c[70][70];
+string go(int y, int x, int nSize) {
+	char cur = c[y][x];
+	if (nSize == 1) return to_string(cur-'0');
+	for (int i = y; i < y + nSize; i++) {
+		for (int j = x; j < x + nSize; j++) {
+			if (cur != c[i][j]) {
+				int hSize = nSize / 2;
+				string ret = "(";
+				ret += go(y, x, hSize);
+				ret += go(y, x + hSize, hSize);
+				ret += go(y + hSize, x , hSize);
+				ret += go(y + hSize, x + hSize, hSize);
 				ret += ")";
 				return ret;
 			}
 		}
 	}
-	return string(1, a[y][x]);
+	return to_string(cur-'0');
 }
-
 int main() {
-	int N;
-	cin >> N;
-	for (int i = 0; i < N; i++) {
-		for (int j = 0; j < N; j++) {
-			cin >> s;
-			a[i][j] = s;
-		}
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) cin >> c[i][j];
 	}
-	cout << quad(0, 0, N) << "\n";
+	cout << go(0, 0, n) << "\n";
+	return 0;
 }
