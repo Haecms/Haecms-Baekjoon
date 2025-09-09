@@ -1,36 +1,41 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<string>
 using namespace std;
 string s;
-bool isMoum(char a) { return a == 'a' || a == 'i' || a == 'e' || a == 'o' || a == 'u'; }
-int main()
-{
+int main() {
+	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 	while (true) {
 		cin >> s;
 		if (s == "end") break;
-		bool flag1 = false;
-		bool flag2 = true;
-		for (char a : s) {
-			if (isMoum(a)) { flag1 = true; break; }
-		}
-		stack<char> munjayeol;
-		for (char a : s) {
-			if (munjayeol.size() != 0) 
-			{
-				if (munjayeol.top() == a) {
-					if (a != 'e' && a != 'o') { flag2 = false; break; }
-				}
-				if (munjayeol.size() > 1) {
-					if (isMoum(munjayeol.top()) == isMoum(a)) {
-						char n = munjayeol.top();
-						munjayeol.pop();
-						if (isMoum(munjayeol.top()) == isMoum(a)) { flag2 = false; break; }
-						else { munjayeol.push(n); }
-					}
+		bool one = false;
+		bool two = true;
+		bool three = true;
+		int cnt = 0;
+		int cnt2_1 = 0, cnt2_2 = 0;
+		char before = ' ';
+		for (int i = 0; i < s.size(); i++) {
+			if (s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u') {
+				one = true;
+				cnt2_1++;
+				cnt2_2 = 0;
+				if (cnt2_1 == 3) two = false;
+			}
+			else {
+				cnt2_1 = 0;
+				cnt2_2++;
+				if (cnt2_2 == 3) two = false;
+			}
+
+			if (before == s[i]) {
+				if (s[i] != 'e' && s[i] != 'o') {
+					three = false;
 				}
 			}
-			munjayeol.push(a);
+			else cnt = 0;
+			before = s[i];
 		}
-		if (!flag1 || !flag2) { cout << "<" << s << ">" << " is not acceptable.\n"; }
-		else { cout << "<" << s << ">" << " is acceptable.\n"; }
+		if (one && two && three) cout << "<" << s << "> is acceptable.\n";
+		else cout << "<" << s << "> is not acceptable.\n";
 	}
+	return 0;
 }
