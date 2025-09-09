@@ -5,9 +5,7 @@ string s;
 vector<string> v;
 bool smp(string a, string b) {
 	if (a.size() != b.size()) return a.size() < b.size();
-	for (int i = 0; i < a.size(); i++) {
-		if ((int)a[i] != int(b[i])) return (int)a[i] < (int)b[i];
-	}
+    return a < b;
 }
 int main()
 {
