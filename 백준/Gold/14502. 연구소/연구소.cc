@@ -1,54 +1,53 @@
 #include<iostream>
 #include<vector>
+#include<memory.h>
 using namespace std;
-int n, m, a[9][9], v[9][9], cntR=0;
-int dy[4] = { 0, -1, 0, 1 };
-int dx[4] = { 1, 0, -1, 0 };
+int n, m, a[9][9], visited[9][9], ret;
+int dy[4] = { 0,1,0,-1 };
+int dx[4] = { 1,0,-1,0 };
 vector<pair<int, int>> wall;
-vector<pair<int, int>> virus;
-
-void insfection(int y, int x) {
-	v[y][x] = 2;
+void go(int y, int x) {
+	visited[y][x] = 2;
 	for (int i = 0; i < 4; i++) {
-		int ny = y + dy[i];
-		int nx = x + dx[i];
-		if (ny < 0 || nx < 0 || ny >= n || nx >= m) continue;
-		if (a[ny][nx] > 0 || v[ny][nx] > 0) continue;
-		insfection(ny, nx);
+		int ny = dy[i] + y;
+		int nx = dx[i] + x;
+		if (ny < 0 || nx < 0 || ny >= n || nx >= m || a[ny][nx] == 1 || visited[ny][nx]) continue;
+		go(ny, nx);
 	}
 }
-
 int main() {
 	cin >> n >> m;
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < m; j++) {
 			cin >> a[i][j];
-			if (!a[i][j]) wall.push_back({ i, j });
-			if (a[i][j] == 2) virus.push_back({ i,j });
+			if (!a[i][j]) wall.push_back({ i,j });
 		}
 	}
-	for (int i = 0; i < wall.size(); i++) {
-		for (int j = 0; j < i; j++) {
-			for (int k = 0; k < j; k++) {
-				a[wall[i].first][wall[i].second] = 1;
-				a[wall[j].first][wall[j].second] = 1;
-				a[wall[k].first][wall[k].second] = 1;
-				fill(&v[0][0], &v[0][0] + 9 * 9, 0);
-				for (int h = 0; h < virus.size(); h++) {
-					insfection(virus[h].first, virus[h].second);
-				}
-				int cnt=0;
-				for (int h = 0; h < n; h++) {
-					for (int p = 0; p < m; p++) {
-						if (v[h][p] == 0 && a[h][p] == 0) cnt++;
+	for (int i = 0; i < wall.size() -2; i++) {
+		for (int j = i + 1; j < wall.size() - 1; j++) {
+			for (int k = j + 1; k < wall.size(); k++) {
+				fill(&visited[0][0], &visited[0][0] + 9 * 9, 0);
+				a[wall[i].first][wall[i].second]++;
+				a[wall[j].first][wall[j].second]++;
+				a[wall[k].first][wall[k].second]++;
+				for (int y = 0; y < n; y++) {
+					for (int x = 0; x < m; x++) {
+						if (a[y][x] == 2 && !visited[y][x]) go(y, x);
 					}
 				}
-				cntR = max(cntR, cnt);
-				a[wall[i].first][wall[i].second] = 0;
-				a[wall[j].first][wall[j].second] = 0;
-				a[wall[k].first][wall[k].second] = 0;
+				int cnt = 0;
+				for (int y = 0; y < n; y++) {
+					for (int x = 0; x < m; x++) {
+						if (!a[y][x] && !visited[y][x]) cnt++;
+					}
+				}
+				a[wall[i].first][wall[i].second]--;
+				a[wall[j].first][wall[j].second]--;
+				a[wall[k].first][wall[k].second]--;
+                ret = max(ret, cnt);
 			}
 		}
 	}
-	cout << cntR << '\n';
+	cout << ret << "\n";
+	return 0;
 }
