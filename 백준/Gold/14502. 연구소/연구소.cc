@@ -11,7 +11,7 @@ void go(int y, int x) {
 	for (int i = 0; i < 4; i++) {
 		int ny = dy[i] + y;
 		int nx = dx[i] + x;
-		if (ny < 0 || nx < 0 || ny >= n || nx >= m || a[ny][nx] == 1 || visited[ny][nx]) continue;
+		if (ny < 0 || nx < 0 || ny >= n || nx >= m || a[ny][nx] || visited[ny][nx]) continue;
 		go(ny, nx);
 	}
 }
@@ -41,10 +41,10 @@ int main() {
 						if (!a[y][x] && !visited[y][x]) cnt++;
 					}
 				}
+				ret = max(ret, cnt);
 				a[wall[i].first][wall[i].second]--;
 				a[wall[j].first][wall[j].second]--;
 				a[wall[k].first][wall[k].second]--;
-                ret = max(ret, cnt);
 			}
 		}
 	}
