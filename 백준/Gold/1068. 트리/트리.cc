@@ -1,27 +1,26 @@
 #include<iostream>
 #include<vector>
 using namespace std;
-int n, m, c=0, f;
-vector<int> v[52];
-int go(int k, int cnt) {
-	if (v[k].size() == 0 || k == m+1) return 0;
-	for (int a : v[k]) {
-		if (a == m + 1 && v[k].size() == 1) return cnt + 1;
-		if (a == m + 1) continue;
-		if (v[a].size() == 0) cnt += 1;
-		else cnt = go(a, cnt);
+vector<int> v[54];
+int n, a, root;
+int go(int cur) {
+	if (cur == a) return 0;
+	if (!v[cur].size()) return 1;
+	int cnt = 0;
+	for (auto vv : v[cur]) {
+		if (vv == a && v[cur].size() == 1) return 1;
+		cnt += go(vv);
 	}
 	return cnt;
 }
 int main() {
-	ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 	cin >> n;
 	for (int i = 0; i < n; i++) {
-		cin >> m;
-		if (m == -1) f = i +1;
-		v[m+1].push_back(i+1);
+		cin >> a;
+		if (a != -1) v[a].push_back(i);
+		else root = i;
 	}
-	cin >> m;
-	c = go(f, 0);
-	cout << c << '\n';
+	cin >> a;
+	cout << go(root) << "\n";
+	return 0;
 }
