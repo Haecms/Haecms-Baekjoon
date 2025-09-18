@@ -17,17 +17,11 @@ int main() {
 			cnt++;
 			continue;
 		}
-		if (cur+1 < 100001 && visited[cur] + 1 <= visited[cur + 1]) {
-			q.push(cur + 1);
-			visited[cur + 1] = visited[cur] + 1;
-		}
-		if (cur-1 >-1 && visited[cur] + 1 <= visited[cur - 1]) {
-			q.push(cur - 1);
-			visited[cur - 1] = visited[cur] + 1;
-		}
-		if (cur * 2 < 100001 && visited[cur] + 1 <= visited[cur * 2]) {
-			q.push(cur * 2);
-			visited[cur * 2] = visited[cur] + 1;
+		for (int nxt : {cur - 1, cur + 1, cur * 2}) {
+			if (nxt >= 0 && nxt < 100001 && visited[nxt] >= visited[cur] + 1) {
+				q.push(nxt);
+				visited[nxt] = visited[cur] + 1;
+			}
 		}
 	}
 	cout <<	ret -1 << "\n" << cnt << "\n";
