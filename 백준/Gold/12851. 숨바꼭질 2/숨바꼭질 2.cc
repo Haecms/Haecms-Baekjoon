@@ -1,31 +1,35 @@
 #include<iostream>
 #include<queue>
 using namespace std;
-int n, m, maxCnt = 1e9, ret, visited[200004];
-queue<pair<int, int>> q;
+int s, b, visited[100004], ret = 1000000, cnt;
+queue<int>q;
 int main() {
-	for (int i = 0; i < 200004; i++) visited[i] = 1e9;
-	cin >> n >> m;
-	q.push({ n,1 });
-	visited[n] = 1;
+	for (int i = 0; i < 100001; i++) visited[i] = 1000000;
+	cin >> s >> b;
+	q.push(s);
+	visited[s] = 1;
 	while (q.size()) {
-		int cur = q.front().first;
-		int cnt = q.front().second;
+		int cur = q.front();
 		q.pop();
-		if (maxCnt < cnt) break;
-		if (cur == m) {
-			maxCnt = cnt;
-			ret++;
+		if (ret < visited[cur]) break;
+		if (cur == b) {
+			ret = visited[cur];
+			cnt++;
 			continue;
 		}
-		int next_pos[3] = {cur - 1, cur + 1, cur * 2};
-		for (int nxt : next_pos) {
-			if (nxt >= 0 && nxt <= 200000 && visited[nxt] >= cnt + 1) {
-				visited[nxt] = cnt + 1;
-				q.push({ nxt, cnt + 1 });
-			}
+		if (cur+1 < 100001 && visited[cur] + 1 <= visited[cur + 1]) {
+			q.push(cur + 1);
+			visited[cur + 1] = visited[cur] + 1;
+		}
+		if (cur-1 >-1 && visited[cur] + 1 <= visited[cur - 1]) {
+			q.push(cur - 1);
+			visited[cur - 1] = visited[cur] + 1;
+		}
+		if (cur * 2 < 100001 && visited[cur] + 1 <= visited[cur * 2]) {
+			q.push(cur * 2);
+			visited[cur * 2] = visited[cur] + 1;
 		}
 	}
-	cout << maxCnt-1 << "\n" << ret << "\n";
+	cout <<	ret -1 << "\n" << cnt << "\n";
 	return 0;
 }
