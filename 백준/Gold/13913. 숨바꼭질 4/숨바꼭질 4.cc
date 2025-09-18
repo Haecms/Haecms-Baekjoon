@@ -1,40 +1,33 @@
 #include<iostream>
 #include<queue>
-#include<vector>
-#include<algorithm>
 using namespace std;
-int subin, brother, visited[400004], minTime=2000000, prevv[400004];
-queue<int> q;
-vector<int> v;
+int s, b, visited[100004], trace[100004];
+queue<int>q;
+
+void goTrace(int cur) {
+	if (trace[cur] != cur) goTrace(trace[cur]);
+	cout << cur << " ";
+}
 int main() {
-	cin >> subin >> brother;
-	q.push(subin);
-	visited[subin] = 1;
+	cin >> s >> b;
+	for (int i = 0; i < 100001; i++) visited[i] = 100000000;
+	q.push(s);
+	visited[s] = 0;
+	trace[s] = s;
 	while (q.size()) {
-		int subinPlace = q.front();
-		if (subinPlace == brother) {
-			minTime = min(minTime, visited[subinPlace] - 1);
-			q.pop();
-			continue;
-		}
+		int cur = q.front();
 		q.pop();
-		int go_up = subinPlace + 1;
-		int go_down = subinPlace - 1;
-		int go_telepote = subinPlace * 2;
-		for (int next : {go_up, go_down, go_telepote}) {
-			if (next >= 0 && next <= 200001 && (!visited[next] || visited[next] > visited[subinPlace] + 1)) {
-				visited[next] = visited[subinPlace] + 1;
-				prevv[next] = subinPlace;
-				q.push(next);
+		if (cur == b) break;
+
+		for (int nxt : {cur + 1, cur - 1, cur * 2}) {
+			if (nxt >= 0 && nxt <100001 && visited[nxt] > visited[cur] + 1) {
+				visited[nxt] = visited[cur] + 1;
+				trace[nxt] = cur;
+				q.push(nxt);
 			}
 		}
 	}
-	for (int i = brother; i != subin; i = prevv[i]) {
-		v.push_back(i);
-	}
-	v.push_back(subin);
-	reverse(v.begin(), v.end());
-	cout << minTime << "\n";
-	for (int i : v) cout << i << " ";
+	cout << visited[b] << "\n";
+	goTrace(b);
 	return 0;
 }
