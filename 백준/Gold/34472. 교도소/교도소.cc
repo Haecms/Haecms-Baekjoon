@@ -18,9 +18,15 @@ int main() {
 				rest += (arr[i] - need);
 				arr[i] = need;
 			}
-			else if (arr[i] < need && rest + arr[i] >= need) {
-				rest -= (need - arr[i]);
-				arr[i] = need;
+			else if (arr[i] < need) {
+				if (arr[i] + rest >= need) {
+					rest -= (need - arr[i]);
+					arr[i] = need;
+				}
+				else {
+					arr[i] += rest;
+					rest = 0;
+				}
 			}
 		}
 	}
