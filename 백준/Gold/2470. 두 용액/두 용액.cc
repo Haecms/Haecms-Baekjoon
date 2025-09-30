@@ -2,7 +2,7 @@
 #include<algorithm>
 #include<math.h>
 using namespace std;
-int n, a[100004], minSum = 2000000000;
+int n, a[100004], minSum = 2000000001;
 pair<int, int> ret;
 int main() {
 	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
