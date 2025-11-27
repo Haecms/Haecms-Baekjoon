@@ -19,6 +19,7 @@ int main() {
 		cin >> s;
 		for (int j = 0; j < m; j++) a[i][j] = s[j] - '0';
 	}
+    
 	q.push({ 0,0,0,1 });
 	visited[0][0][1] = 1;	
 
@@ -29,6 +30,8 @@ int main() {
 		bool morning = q.front().morning;
 		bool changeTime = bool(morning ^ 1);
 		q.pop();
+
+		if (macnt[y][x][morning] < cnt) continue;
 
 		if (y == n - 1 && x == m - 1) {
 			ret = visited[y][x][morning];
@@ -65,6 +68,8 @@ int main() {
 			}
 		}
 	}
+    
 	cout << ret << "\n";
+    
 	return 0;
 }
